@@ -1,6 +1,6 @@
 # Import Maps Generator
 
-Generate import maps to achieve true buildless development. Uses @jspm/generator under the hood. Works with Bun&HTMLRewriter
+Generate import maps to achieve true buildless development. Uses `@jspm/generator` under the hood. Built on `Bun` and uses `HTMLRewriter` for the best performance
 ## Usage
 It needs js input file and provides html output based on output file
 ```bash
@@ -40,7 +40,7 @@ Output:
 </body>
 </html>
 ```
-API:
+## API:
 ```js
 /**
  * Generates import maps based on the provided input file and writes the result to the output file.
@@ -53,8 +53,20 @@ API:
  */
 ```
 
-TODO:
+## TODO:
 - [ ] allow html file as input like in @jspm/generator
 - [ ] pass custom arguments to @jspm generator
+- [ ] test it on Node.js
 
-Why it exists? @jspm/generator cannot write to html file as JSPM CLI does, but CLI not allow custom js input and html output. Also, this project simplify usage of @jspm/generator to just link local dependencies
+## Why it exists?
+I had problems with lit on bun+elysia. The classic 
+```
+TypeError: Failed to resolve module specifier "lit". Relative references must start with either "/", "./", or "../".
+```
+I tried to find something like `koa-node-resolve` but for `Elysia.js` and not found such a thing. So I decided to generate [import maps](https://github.com/WICG/import-maps).
+
+I tried JSPM CLI(and Bun version not worked well, so I used it from node), and found out that since I used custom routing for my project I cannot use CLI. So I used @jspm/generator which cannot write to html file as JSPM CLI does.
+
+This project solves problems I had:
+- [ ] It allowed me to use custom routing and still generate correct Import Maps
+- [ ] It built on Bun and I had no problems launching it from CLI
