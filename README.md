@@ -1,6 +1,6 @@
 # Import Maps Generator
 
-#### Generate import maps to achieve true buildless development. Uses @jspm/generator under the hood. Works with Bun&HTMLRewriter
+Generate import maps to achieve true buildless development. Uses @jspm/generator under the hood. Works with Bun&HTMLRewriter
 ## Usage
 It needs js input file and provides html output based on output file
 ```bash
