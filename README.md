@@ -68,5 +68,5 @@ I tried to find something like `koa-node-resolve` but for `Elysia.js` and not fo
 I tried JSPM CLI(and Bun version not worked well, so I used it from node), and found out that since I used custom routing for my project I cannot use CLI. So I used @jspm/generator which cannot write to html file as JSPM CLI does.
 
 This project solves problems I had:
-- [ ] It allowed me to use custom routing and still generate correct Import Maps
-- [ ] It built on Bun and I had no problems launching it from CLI
+- [x] It allowed me to use custom routing and still generate correct Import Maps
+- [x] It built on Bun and I had no problems launching it from CLI
