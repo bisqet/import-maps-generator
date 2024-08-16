@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "test": "bun tests/_test.js",
-    "start": "bun generateImportMaps.js --input=./tests/assets/test-element.js --output=./tests/assets/test.html"
+    "start": "bun generateImportMaps.js --input=./tests/assets/test.html"
   },
   "dependencies": {
     "@jspm/generator": "^2.1.3",

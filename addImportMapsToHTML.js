@@ -16,11 +16,11 @@ class ScriptHandler {
   }
 }
 
-export const addImportMapsToHTML = async ({html, importMap, rewrite=true}) => {
+export const addImportMapsToHTML = async ({html, importMap, rewriteExistingMap= true, }) => {
   const rewriter = new HTMLRewriter();
   rewriter
     .on('head', new HeadHandler(importMap))
-  if(rewrite){
+  if(rewriteExistingMap){
     rewriter.on('script', new ScriptHandler())
   }
   return rewriter.transform(html)

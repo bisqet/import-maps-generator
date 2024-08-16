@@ -1,38 +1,46 @@
-import {Generator} from "@jspm/generator";
 import {addImportMapsToHTML} from './addImportMapsToHTML.js';
+import * as path from "node:path";
+import {createGenerator} from "./createGenerator.js";
 
 /**
  * Generates import maps based on the provided input file and writes the result to the output file.
  *
  * @param {Object} options - The options for generating import maps.
- * @param {string} options.input - The path to the JS input file. If not provided, the value from the `process.env.input` environment variable is used.
+ * @param {string} options.input - The path to the JS/HTML input file. If not provided, the value from the `process.env.input` environment variable is used.
  * @param {string} options.output - The path to the HTML output file. If not provided, the value from the `process.env.output` environment variable is used.
- * @param {boolean} options.rewrite - Indicates whether to rewrite the Import Maps of the HTML output file with the generated import maps. If not provided, the value from the `process.env.rewrite` environment variable is used. Defaults to `true`.
- * @return {Promise<string|undefined>} - A promise that resolves to the generated import map as a string if `output` is not provided. Otherwise, it resolves to `undefined`.
+ * @param {boolean} options.rewriteExistingMap - Indicates whether to rewrite the Import Maps of the HTML output file with the generated import maps. If not provided, the value from the `process.env.rewriteExistingMap` environment variable is used. Defaults to `true`.
+ * @param {boolean} options.writeToDisk - Indicates whether to write the Output to disk. If not provided, the value from the `process.env.rewriteExistingMap` environment variable is used. Defaults to `true`.
+ * @return {Promise<string>} - A promise that resolves to the generated import map as a string
  */
 export const generateImportMaps = async ({
                                            input = process.env.input,
                                            output = process.env.output,
-                                           rewrite = process.env.rewrite || true
+                                           rewriteExistingMap = process.env.rewriteExistingMap || true,
+                                           writeToDisk= process.env.writeToDisk || true
                                          } = {}) => {
   if (!input) return 'input is required';
+  const filetype = (input.split('.').pop()).replace(/{html|htm}/gi, 'html');
 
-  const generator = new Generator({
-    mapUrl: import.meta.url,
-    env: ['production', 'module', 'browser'],
-    defaultProvider: 'nodemodules',
-  });
+  console.log(input,filetype);
 
-  await generator.link(input);
+  const generator = createGenerator(filetype, input);
+
+  if(filetype===`html`){
+    const inputFileText = await Bun.file(input).text();
+    await generator.linkHtml(inputFileText);
+  } else {
+    await generator.link(input);
+  }
 
   const importMap = generator.getMap();
+  console.log(importMap)
 
   if (!output) return importMap;
   const outputFileContent = new Response(await Bun.file(output));
-  const outputResponse = await addImportMapsToHTML({html: outputFileContent, importMap, rewrite});
+  const outputResponse = await addImportMapsToHTML({html: outputFileContent, importMap, rewriteExistingMap});
   const outputResponseText = await outputResponse.text()
 
-  await Bun.write(output, outputResponseText)
+  if(writeToDisk)  await Bun.write(output, outputResponseText)
   return outputResponseText;
 }
 

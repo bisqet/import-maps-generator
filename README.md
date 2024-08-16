@@ -48,16 +48,22 @@ Output:
  * @param {Object} options - The options for generating import maps.
  * @param {string} options.input - The path to the JS input file. If not provided, the value from the `process.env.input` environment variable is used.
  * @param {string} options.output - The path to the HTML output file. If not provided, the value from the `process.env.output` environment variable is used.
- * @param {boolean} options.rewrite - Indicates whether to rewrite the Import Maps of the HTML output file with the generated import maps. If not provided, the value from the `process.env.rewrite` environment variable is used. Defaults to `true`.
- * @return {Promise<string|undefined>} - A promise that resolves to the generated import map as a string if `output` is not provided. Otherwise, it resolves to `undefined`.
+ * @param {boolean} options.rewriteExistingMap - Indicates whether to rewrite the Import Maps of the HTML output file with the generated import maps. If not provided, the value from the `process.env.rewriteExistingMap` environment variable is used. Defaults to `true`.
+ * @param {boolean} options.writeToDisk - Indicates whether to write the Output to disk. If not provided, the value from the `process.env.rewriteExistingMap` environment variable is used. Defaults to `true`.
+ * @return {Promise<string>} - A promise that resolves to the generated import map as a string if `output` is not provided.
  */
 ```
 
 ## TODO:
-- [ ] allow html file as input like in @jspm/generator
 - [ ] pass custom arguments to @jspm generator
 - [ ] test it on Node.js
+- [ ] allow advanced custom routing, to allow custom routes like this:
+```js 
+app.use(staticPlugin({assets: './frontend', prefix:'/'}));
+app.use(staticPlugin({assets: './node_modules', prefix:'/node_modules'}));
+```
 
+    
 ## Why it exists?
 I had problems with lit on bun+elysia. The classic 
 ```
@@ -70,3 +76,4 @@ I tried JSPM CLI(and Bun version not worked well, so I used it from node), and f
 This project solves problems I had:
 - [x] It allowed me to use custom routing and still generate correct Import Maps
 - [x] It built on Bun and I had no problems launching it from CLI
+- [x] It works faster @jspm/generator htmlInject because uses bun's HTMLRewriter
