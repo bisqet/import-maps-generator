@@ -16,7 +16,10 @@ class ScriptHandler {
   }
 }
 
-export const addImportMapsToHTML = async ({html, importMap, rewriteExistingMap= true, }) => {
+export const addImportMapsToHTML = async ({html, importMap, rewriteExistingMap= true, generator}) => {
+  if(!HTMLRewriter){
+    return generator.htmlInject(html)
+  }
   const rewriter = new HTMLRewriter();
   rewriter
     .on('head', new HeadHandler(importMap))
