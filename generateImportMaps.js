@@ -19,13 +19,14 @@ export const generateImportMaps = async ({
                                            writeToDisk= process.env.writeToDisk || true
                                          } = {}) => {
   if (!input) return 'input is required';
-  const filetype = (input.split('.').pop()).replace(/{html|htm}/gi, 'html');
+  const filetype = path.extname(input).replace(/{html|htm}/gi, 'html');
+  const isHtml = filetype === 'html';
 
   console.log(input,filetype);
 
-  const generator = createGenerator(filetype, input);
+  const generator = createGenerator(isHtml, input);
 
-  if(filetype===`html`){
+  if(isHtml){
     const inputFileText = await Bun.file(input).text();
     await generator.linkHtml(inputFileText);
   } else {
