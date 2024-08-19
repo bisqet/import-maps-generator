@@ -20,7 +20,7 @@ export const generateImportMaps = async ({
                                          } = {}) => {
   if (!input) return 'input is required';
   const filetype = path.extname(input).replace(/{html|htm}/gi, 'html');
-  const isHtml = filetype === 'html';
+  const isHtml = filetype === '.html';
 
   console.log(input,filetype);
 
