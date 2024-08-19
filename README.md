@@ -10,7 +10,7 @@ Or
 ```js
 import {generateImportMaps} from 'import-maps-generator'
 
-await generateImportMaps({input:'./tests/assets/test-element.js', output:'./tests/assets/test.html'})
+await generateImportMaps({input:'./tests/assets/test-element.js', output:'./tests/assets/testResult.html'})
 ```
 Output:
 ```html
