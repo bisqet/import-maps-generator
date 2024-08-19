@@ -55,6 +55,7 @@ Output:
 ```
 
 ## TODO:
+- [ ] pass mapUrl to @jspm generator
 - [ ] pass custom arguments to @jspm generator
 - [ ] test it on Node.js
 - [ ] allow advanced custom routing, to allow custom routes like this:
