@@ -4,12 +4,14 @@
   "type": "module",
   "scripts": {
     "test": "bun tests/_test.js",
-    "start": "bun generateImportMaps.js --input=./tests/assets/test.html"
+    "dev": "bun --inspect-brk generateImportMaps.js --input=./tests/assets/test-element.js --output=./tests/assets/testResult.html",
+    "start": "bun generateImportMaps.js --input=./tests/assets/test-element.js --output=./tests/assets/testResult.html"
   },
   "dependencies": {
     "@jspm/generator": "^2.1.3",
     "minimist": "^1.2.8"
   },
+  "main": "generateImportMaps.js",
   "devDependencies": {
     "lit": "^3.2.0"
   }
