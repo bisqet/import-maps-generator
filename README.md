@@ -2,7 +2,7 @@
 
 Generate import maps to achieve true buildless development. Uses `@jspm/generator` under the hood. Built on `Bun` and uses `HTMLRewriter` for the best performance
 ## Usage
-It needs js input file and provides html output based on output file
+It needs js/html input file and provides html/json output
 ```bash
 bun generateImportMaps.js --input=./tests/assets/test-element.js --output=./tests/assets/test.html
 ```
@@ -17,22 +17,22 @@ Output:
 <!DOCTYPE html>
 <html lang="en">
 <head><script type="importmap">
-  {
-"imports": {
-"lit": "./node_modules/lit/index.js"
-},
-"scopes": {
-"./node_modules/": {
-  "@lit/reactive-element": "./node_modules/@lit/reactive-element/reactive-element.js",
-  "lit-element/lit-element.js": "./node_modules/lit-element/lit-element.js",
-  "lit-html": "./node_modules/lit-html/lit-html.js",
-  "lit-html/is-server.js": "./node_modules/lit-html/is-server.js"
+      {
+  "imports": {
+    "lit": "../../node_modules/lit/index.js"
+  },
+  "scopes": {
+    "../../node_modules/": {
+      "@lit/reactive-element": "../../node_modules/@lit/reactive-element/reactive-element.js",
+      "lit-element/lit-element.js": "../../node_modules/lit-element/lit-element.js",
+      "lit-html": "../../node_modules/lit-html/lit-html.js",
+      "lit-html/is-server.js": "../../node_modules/lit-html/is-server.js"
+    }
+  }
 }
-}
-}
-</script>
+    </script>
   <meta charset="UTF-8">
-  <title>test</title>
+  <title>test result</title>
   <script type="module" src="test-element.js"></script>
 </head>
 <body>
