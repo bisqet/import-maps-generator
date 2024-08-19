@@ -1,6 +1,6 @@
 import {addImportMapsToHTML} from './addImportMapsToHTML.js';
-import * as path from "node:path";
 import {createGenerator} from "./createGenerator.js";
+import path from "node:path";
 
 /**
  * Generates import maps based on the provided input file and writes the result to the output file.
@@ -30,7 +30,8 @@ export const generateImportMaps = async ({
     const inputFileText = await Bun.file(input).text();
     await generator.linkHtml(inputFileText);
   } else {
-    await generator.link(input);
+    console.log(path.basename(input))
+    await generator.link(`./${path.basename(input)}`);
   }
 
   const importMap = generator.getMap();

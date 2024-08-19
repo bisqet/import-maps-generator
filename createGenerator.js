@@ -1,15 +1,18 @@
 import {Generator} from "@jspm/generator";
 import path from "node:path";
+import * as url from "node:url";
 
-export const createGenerator = (html=false, input) => {
+export const createGenerator = (html=false, input, mapUrl) => {
+  const inputUrl = url.pathToFileURL(path.dirname(input)+'/');
+  console.log(inputUrl);
   if(html) return new Generator({
-    mapUrl: import.meta.url,
+    mapUrl: inputUrl,
     env: ['production', 'module', 'browser'],
     defaultProvider: 'nodemodules',
-    baseUrl : path.dirname(path.resolve(import.meta.dir, input))
+    baseUrl : inputUrl
   });
   return new Generator({
-    mapUrl: import.meta.url,
+    mapUrl: inputUrl,
     env: ['production', 'module', 'browser'],
     defaultProvider: 'nodemodules',
   });
