@@ -58,7 +58,7 @@ Output:
 - [ ] pass mapUrl to @jspm generator
 - [ ] pass custom arguments to @jspm generator
 - [ ] test it on Node.js
-- [ ] allow advanced custom routing, to allow custom routes like this:
+- [ ] Allow custom routes like this:
 ```js 
 app.use(staticPlugin({assets: './frontend', prefix:'/'}));
 app.use(staticPlugin({assets: './node_modules', prefix:'/node_modules'}));
