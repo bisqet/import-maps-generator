@@ -5,7 +5,8 @@
   "scripts": {
     "test": "bun tests/_test.js",
     "dev": "bun --inspect-brk generateImportMaps.js --input=./tests/assets/test-element.js --output=./tests/assets/testResult.html",
-    "start": "bun generateImportMaps.js --input=./tests/assets/test-element.js --output=./tests/assets/testResult.html"
+    "start": "bun generateImportMaps.js --input=./tests/assets/test-element.js --output=./tests/assets/testResult.html",
+    "startHtml": "bun generateImportMaps.js --input=./tests/assets/test.html --output=./tests/assets/testResult.html"
   },
   "dependencies": {
     "@jspm/generator": "^2.1.3",
