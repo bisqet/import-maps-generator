@@ -4,7 +4,11 @@ Generate import maps to achieve true buildless development. Uses `@jspm/generato
 ## Usage
 It needs js/html input file and provides html/json output
 ```bash
-bun generateImportMaps.js --input=./tests/assets/test-element.js --output=./tests/assets/test.html
+bun generateImportMaps.js --input=./tests/assets/test-element.js --output=./tests/assets/testResult.html
+```
+Or
+```bash
+node generateImportMaps.js --input=./tests/assets/test-element.js --output=./tests/assets/testResult.html
 ```
 Or
 ```js
