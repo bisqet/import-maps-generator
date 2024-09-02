@@ -1,6 +1,7 @@
 {
   "name": "import-maps-generator",
   "module": "index.js",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "test": "bun tests/_test.js",

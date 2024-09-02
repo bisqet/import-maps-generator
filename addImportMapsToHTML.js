@@ -17,14 +17,20 @@ class ScriptHandler {
 }
 
 export const addImportMapsToHTML = async ({html, importMap, rewriteExistingMap= true, generator}) => {
-  if(!HTMLRewriter){
-    return generator.htmlInject(html)
+  try {
+    const rewriter = new HTMLRewriter();
+    rewriter
+      .on('head', new HeadHandler(importMap))
+    if(rewriteExistingMap){
+      rewriter.on('script', new ScriptHandler())
+    }
+    return rewriter.transform(html)
+  } catch (error) {
+    if(error.message === 'HTMLRewriter is not defined') {
+      const htmlText = await html.text()
+      return new Response(await generator.htmlInject(htmlText, {esModuleShims: false}))
+    }
+    throw new error
   }
-  const rewriter = new HTMLRewriter();
-  rewriter
-    .on('head', new HeadHandler(importMap))
-  if(rewriteExistingMap){
-    rewriter.on('script', new ScriptHandler())
-  }
-  return rewriter.transform(html)
+
 }

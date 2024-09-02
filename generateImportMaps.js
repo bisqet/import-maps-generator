@@ -1,6 +1,7 @@
 import {addImportMapsToHTML} from './addImportMapsToHTML.js';
 import {createGenerator} from "./createGenerator.js";
 import path from "node:path";
+import fs from "node:fs/promises";
 
 /**
  * Generates import maps based on the provided input file and writes the result to the output file.
@@ -27,7 +28,7 @@ export const generateImportMaps = async ({
   const generator = createGenerator(isHtml, input);
 
   if(isHtml){
-    const inputFileText = await Bun.file(input).text();
+    const inputFileText = await fs.readFile(input).text();
     await generator.linkHtml(inputFileText);
   } else {
     console.log(path.basename(input))
@@ -38,15 +39,16 @@ export const generateImportMaps = async ({
   console.log(importMap)
 
   if (!output) return importMap;
-  const outputFileContent = new Response(await Bun.file(output));
-  const outputResponse = await addImportMapsToHTML({html: outputFileContent, importMap, rewriteExistingMap});
+
+  const outputFileContent = new Response(await fs.readFile(output));
+  const outputResponse = await addImportMapsToHTML({html: outputFileContent, importMap, rewriteExistingMap, generator});
   const outputResponseText = await outputResponse.text()
 
-  if(writeToDisk)  await Bun.write(output, outputResponseText)
+  if(writeToDisk)  await fs.writeFile(output, outputResponseText)
   return outputResponseText;
 }
 
-if (import.meta.main) {
+if (import.meta.main || import.meta.url.endsWith(process.argv[1])) {
   const minimist = (await import('minimist')).default;
   const argv = minimist(process.argv.slice(2));
   console.log(await generateImportMaps(argv));
