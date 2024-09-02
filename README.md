@@ -1,6 +1,6 @@
 # Import Maps Generator
 
-Generate import maps to achieve true buildless development. Uses `@jspm/generator` under the hood. Built on `Bun` and uses `HTMLRewriter` for the best performance
+Generate import maps to achieve true buildless development. Uses `@jspm/generator` under the hood. Built on `Bun` and uses `HTMLRewriter` for the best performance. Works fine with Node.js also
 ## Usage
 It needs js/html input file and provides html/json output
 ```bash
@@ -57,7 +57,6 @@ Output:
 ## TODO:
 - [ ] pass mapUrl to @jspm generator
 - [ ] pass custom arguments to @jspm generator
-- [ ] test it on Node.js
 - [ ] Allow custom routes like this:
 ```js 
 app.use(staticPlugin({assets: './frontend', prefix:'/'}));
