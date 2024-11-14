@@ -3,6 +3,7 @@
   "module": "index.js",
   "version": "0.0.4",
   "type": "module",
+  "repository": "https://github.com/bisqet/import-maps-generator",
   "scripts": {
     "test": "bun tests/_test.js",
     "dev": "bun --inspect-brk generateImportMaps.js --input=./tests/assets/test-element.js --output=./tests/assets/testResult.html",
